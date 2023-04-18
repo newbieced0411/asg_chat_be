@@ -25,5 +25,7 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
-
+    Route::controller(UserController::class)->prefix('user')->group(function () {
+        Route::post('/edit', 'update');
+    });
 });

@@ -56,7 +56,15 @@ class UserController extends Controller
         }
 
         return response()->json([
+            'user' => auth()->user(),
             'access_token' => $request->user()->createToken('API Token')->plainTextToken
         ], 201);
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+
+        ]);
     }
 }
