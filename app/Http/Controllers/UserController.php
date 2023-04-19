@@ -22,6 +22,12 @@ class UserController extends Controller
         }
     }
 
+    public function show(User $user){
+        return response()->json([
+            'user' => $user
+        ], 200);
+    }
+
     public function new(Request $request)
     {
         $request->validate([
@@ -29,7 +35,6 @@ class UserController extends Controller
             'email' => 'required|unique:users',
             'password' => 'required|confirmed'
         ]);
-
 
         User::create([
             'name' => $request->name,
@@ -61,10 +66,17 @@ class UserController extends Controller
         ], 201);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, User $user)
     {
         $request->validate([
-
+            'name' => 'required|string',
+            'email' => 'required',
         ]);
+
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->save();
+
+        return response()->json(['message' => 'User updated successfully'], 201);
     }
 }

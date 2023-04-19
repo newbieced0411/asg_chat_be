@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,13 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::controller(UserController::class)->prefix('user')->group(function () {
-        Route::post('/edit', 'update');
+        Route::get('/show/{user}', 'show');
+        Route::post('/edit/{user}', 'update');
+    });
+
+    Route::controller(ContactController::class)->prefix('contact')->group(function () {
+        Route::get('/', 'index');
+        Route::post('/search', 'search');
+        Route::post('/add/{id}', 'new');
     });
 });
