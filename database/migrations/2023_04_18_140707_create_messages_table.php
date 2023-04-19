@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Schema::create('messages', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->timestamps();
-        // });
+        Schema::create('messages', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('contact_id');
+            $table->text('message');
+            // $table->boolean('type');
+            $table->timestamps();
+        });
     }
 
     /**

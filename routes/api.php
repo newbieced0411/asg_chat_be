@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,5 +36,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/', 'index');
         Route::post('/search', 'search');
         Route::post('/add/{id}', 'new');
+    });
+
+    Route::controller(MessageController::class)->prefix('message')->group(function () {
+        Route::get('/{id}', 'messages');
+        Route::post('/send', 'send');
     });
 });
