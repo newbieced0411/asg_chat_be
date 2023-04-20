@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Message as EventsMessage;
 use App\Models\User;
 use App\Models\Message;
 use Illuminate\Http\Request;
@@ -29,8 +30,8 @@ class MessageController extends Controller
 
     public function send(Request $request)
     {
-        $request->validation([
-            'message'
+        $request->validate([
+            'chat' => 'required'
         ]);
 
         Message::create([
@@ -38,6 +39,8 @@ class MessageController extends Controller
             'contact_id' =>  $request->responder_id,
             'message' => $request->chat
         ]);
+
+        // event(new EventsMessage())
 
         return response()->json([
             'message' => 'Success'
